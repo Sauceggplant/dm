@@ -1,0 +1,77 @@
+#header {
+    background-color: #426374;
+    width: 100%;
+    height: 60px;
+    padding: 0;
+}
+
+h2 {
+    color: #FFFFFF;
+    width: 400px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 0 0 30px;
+    padding: 0;
+    font-family: "Microsoft YaHei UI";
+    font-weight: bold;
+}
+
+#loginWrapper {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background: #3283AC;
+    background-image: url('../image/admin-login-bg.jpg');
+    background-position-x: center;
+    background-position-y: center;
+    background-size: initial;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+}
+
+#loginform {
+    margin: 0 auto auto auto;
+    align-content: center;
+    margin-top: 120px;
+    opacity: 0.7;
+    font-family: "Microsoft YaHei UI";
+}
+
+.card-header {
+    background: #FFFFFF;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.checkinfo {
+    color: #FF0000;
+}
+
+#footer {
+    background-color: #426374;
+    width: 100%;
+    height: 60px;
+    padding: 0;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+}
+
+h4 {
+    text-align: center;
+    color: #FFFFFF;
+    height: 60px;
+    line-height: 60px;
+    padding: 0;
+    font-family: "Microsoft YaHei UI";
+    font-weight: bold;
+}

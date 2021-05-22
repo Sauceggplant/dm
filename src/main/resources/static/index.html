@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>学生宿舍管理系统</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="bookmark" href="favicon.ico"/>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-grid.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-reboot.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap-table/bootstrap-table.min.css">
+    <link type="text/css" rel="stylesheet" href="gijgo/css/gijgo.min.css">
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" src="jquery/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="gijgo/js/gijgo.min.js"></script>
+    <script type="text/javascript" src="gijgo/js/messages/messages.zh-cn.min.js"></script>
+    <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
+    <style type="text/css" rel="stylesheet">
+        #leftNav {
+            margin-top: 2px;
+            height: 1000px;
+            background: #92B3C4;
+        }
+
+        .navbar {
+            width: 100%;
+            background: #92B3C4;
+        }
+
+        .nav-item:hover {
+            background: #007bff;
+        }
+
+        .navButton {
+            border: 0;
+        }
+
+        #centerData {
+            margin-top: 2px;
+        }
+
+        .cardLabel {
+            border: 0;
+        }
+
+        .content {
+            margin-top: 2px;
+        }
+
+        #footer {
+            background-color: #426374;
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            bottom: 0px;
+            left: 0px;
+            position: fixed;
+        }
+
+        h4 {
+            text-align: center;
+            color: #FFFFFF;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            font-family: "Microsoft YaHei UI";
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/student.js"></script>
+    <script type="text/javascript" src="js/building.js"></script>
+    <script type="text/javascript" src="js/dormitory.js"></script>
+    <script type="text/javascript" src="js/live.js"></script>
+    <script type="text/javascript" src="js/dormitoryManager.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript">
+        /**
+         * jquery初始化加载，默认导航选中home
+         */
+        $(function () {
+            var account = localStorage.getItem("account");
+            if (isNull(account)) {
+                window.location.href = "login.html";
+            }
+            var type = localStorage.getItem("type");
+            loginType = type;
+            if (type === '2') {
+                $("#buildingNavItem").css('display', 'none');
+                $("#dormitoryManagerNavItem").css('display', 'none');
+                $("#adminNavItem").css('display', 'none');
+            } else if (type === '3') {
+                $("#buildingNavItem").css('display', 'none');
+                $("#liveNavItem").css('display', 'none');
+                $("#dormitoryManagerNavItem").css('display', 'none');
+                $("#adminNavItem").css('display', 'none');
+
+                //新增权限
+                $("#studentAddButton").css('display', 'none');
+                $("#buildingAddButton").css('display', 'none');
+                $("#dormitoryAddButton").css('display', 'none');
+                $("#liveAddButton").css('display', 'none');
+                $("#dormitoryManagerAddButton").css('display', 'none');
+                $("#adminAddButton").css('display', 'none');
+
+                //导出权限
+                $("#studentExportButton").css('display', 'none');
+                $("#buildingExportButton").css('display', 'none');
+                $("#dormitoryExportButton").css('display', 'none');
+                $("#liveExportButton").css('display', 'none');
+                $("#dormitoryManagerExportButton").css('display', 'none');
+                $("#adminExportButton").css('display', 'none');
+
+                //导入权限
+                $("#studentUploadButton").css('display', 'none');
+                $("#buildingUploadButton").css('display', 'none');
+                $("#dormitoryUploadButton").css('display', 'none');
+                $("#liveUploadButton").css('display', 'none');
+                $("#dormitoryManagerUploadButton").css('display', 'none');
+                $("#adminUploadButton").css('display', 'none');
+            }
+            $("#loginAccount").html(account);
+            homeNav();
+            $("#addLiveDate").datepicker({
+                locale: 'zh-cn',
+                format: 'yyyy-mm-dd',
+                weekStartDay: 1
+            });
+            $("#updateLiveDate").datepicker({
+                locale: 'zh-cn',
+                format: 'yyyy-mm-dd',
+                weekStartDay: 1
+            });
+        });
+    </script>
+</head>
+<body>
+<!-- 顶部 -->
+<header id="header">
+    <div class="container-fluid">
+        <div class="row" style="background-color: rgb(101, 47, 155)">
+            <div class="col-sm-6"><h3 style="color: #FFF;padding-top: 10px;">学生宿舍管理系统</h3></div>
+            <div class="col-sm-6">
+                <p class="text-right" style="padding-top: 10px; padding-right: 20px;">
+                    <a id="loginAccount"></a><a onclick="exit()">退出</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- 内容 -->
+<div class="row">
+    <div id="leftNav" class="col-sm-2">
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item" id="homeNavItem">
+                    <button class="btn navButton" onclick="homeNav()"><i class="fa fa-navicon fa-fw"></i> 首页</button>
+                </li>
+                <li class="nav-item" id="studentNavItem">
+                    <button class="btn navButton" onclick="studentNav()"><i class="fa fa-address-book fa-fw"></i> 学生管理
+                    </button>
+                </li>
+                <li class="nav-item" id="buildingNavItem">
+                    <button class="btn navButton" onclick="buildingNav()"><i class="fa fa-bank fa-fw"></i> 楼宇管理</button>
+                </li>
+                <li class="nav-item" id="dormitoryNavItem">
+                    <button class="btn navButton" onclick="dormitoryNav()"><i class="fa fa-home fa-fw"></i> 宿舍管理
+                    </button>
+                </li>
+                <li class="nav-item" id="liveNavItem">
+                    <button class="btn navButton" onclick="liveNav()"><i class="fa fa-home fa-fw"></i> 入住管理</button>
+                </li>
+                <li class="nav-item" id="dormitoryManagerNavItem">
+                    <button class="btn navButton" onclick="dormitoryManagerNav()"><i class="fa fa-user fa-fw"></i> 宿管管理
+                    </button>
+                </li>
+                <li class="nav-item" id="adminNavItem">
+                    <button class="btn navButton" onclick="adminNav()"><i class="fa fa-user fa-fw"></i> 管理员管理</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="centerData" class="col-sm-9">
+        <!-- home -->
+        <div class="card contentHead homeHead">
+            <div class="card-body">
+                <div>学生宿舍管理系统</div>
+                <div><p>系统采用了基于Bootstrap的样式搭建的管理系统。后台采用SpringBoot框架和MySQL数据库。</div>
+            </div>
+        </div>
+
+        <!-- student -->
+        <div class="card contentHead studentContentHead">
+            <div class="card-body">
+                <form class="form-horizontal row">
+                    <div class="col-sm-2">
+                        <label class="form-control cardLabel">学生管理</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="studentSn" class="form-control" placeholder="学生编号">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="studentName" class="form-control" placeholder="姓名">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" onclick="studentQuery()"><i
+                                class="fa fa-search" aria-hidden="true"></i> 查询
+                        </button>
+                        <button type="button" id="studentAddButton" class="btn btn-primary" data-toggle="modal"
+                                data-target="#studentAdd"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 新增
+                        </button>
+                        <a id="studentExportButton" class="btn btn-secondary" href="/excel/export?table=student" role="button"><i
+                                class="fa fa-file-excel-o" aria-hidden="true"></i> 导出</a>
+                        <button type="button" id="studentUploadButton" class="btn btn-danger" data-toggle="modal"
+                                data-target="#studentUpload"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 导入
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- building -->
+        <div class="card contentHead buildingContentHead">
+            <div class="card-body">
+                <form class="form-horizontal row">
+                    <div class="form-group col-sm-2">
+                        <label class="form-control cardLabel">楼宇管理</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="buildingName" class="form-control" placeholder="楼宇名称">
+                    </div>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" onclick="buildingQuery()"><i
+                                class="fa fa-search" aria-hidden="true"></i> 查询
+                        </button>
+                        <button type="button" id="buildingAddButton" class="btn btn-primary" onclick="buildingAdd()"
+                                data-toggle="modal"
+                                data-target="#buildingAdd"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 新增
+                        </button>
+                        <a id="buildingExportButton" class="btn btn-secondary" href="/excel/export?table=building" role="button"><i
+                                class="fa fa-file-excel-o" aria-hidden="true"></i> 导出</a>
+                        <button type="button" id="buildingUploadButton" class="btn btn-danger" data-toggle="modal"
+                                data-target="#buildingUpload"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 导入
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- dormitory -->
+        <div class="card contentHead dormitoryContentHead">
+            <div class="card-body">
+                <form class="form-horizontal row">
+                    <div class="col-sm-2">
+                        <label class="form-control cardLabel">宿舍管理</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="dormitorySn" class="form-control" placeholder="宿舍编号">
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" onclick="dormitoryQuery()"><i
+                                class="fa fa-search"></i> 查询
+                        </button>
+                        <button type="button" id="dormitoryAddButton" class="btn btn-primary" onclick="dormitoryAdd()"
+                                data-toggle="modal" data-target="#dormitoryAdd"><i
+                                class="fa fa-user-plus"></i> 新增
+                        </button>
+                        <a id="dormitoryExportButton" class="btn btn-secondary" href="/excel/export?table=dormitory" role="button"><i
+                                class="fa fa-file-excel-o" aria-hidden="true"></i> 导出</a>
+                        <button type="button" id="dormitoryUploadButton" class="btn btn-danger" data-toggle="modal"
+                                data-target="#dormitoryUpload"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 导入
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- live -->
+        <div class="card contentHead liveContentHead">
+            <div class="card-body">
+                <form class="form-horizontal row">
+                    <div class="col-sm-2">
+                        <label class="form-control cardLabel">入住管理</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="liveDormitorySn" class="form-control" placeholder="宿舍编号">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="liveStudentNameOrSn" class="form-control" placeholder="学生姓名">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" onclick="liveQuery()"><i
+                                class="fa fa-search" aria-hidden="true"></i> 查询
+                        </button>
+                        <button type="button" id="liveAddButton" class="btn btn-primary" onclick="liveAdd()"
+                                data-toggle="modal" data-target="#liveAdd"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 新增
+                        </button>
+                        <a id="liveExportButton" class="btn btn-secondary" href="/excel/export?table=live" role="button"><i
+                                class="fa fa-file-excel-o" aria-hidden="true"></i> 导出</a>
+                        <button type="button" id="liveUploadButton" class="btn btn-danger" data-toggle="modal"
+                                data-target="#liveUpload"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 导入
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- dormitoryManager -->
+        <div class="card contentHead dormitoryManagerContentHead">
+            <div class="card-body">
+                <form class="form-horizontal row">
+                    <div class="col-sm-2">
+                        <label class="form-control cardLabel">宿管管理</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="dormitoryManagerSn" class="form-control" placeholder="宿管编号">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" id="dormitoryManagerName" class="form-control" placeholder="姓名">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" onclick="dormitoryManagerQuery()"><i
+                                class="fa fa-search"></i> 查询
+                        </button>
+                        <button type="button" id="dormitoryManagerAddButton" class="btn btn-primary"
+                                data-toggle="modal" data-target="#dormitoryManagerAdd"><i
+                                class="fa fa-user-plus"></i> 新增
+                        </button>
+                        <a id="dormitoryManagerExportButton" class="btn btn-secondary" href="/excel/export?table=dormitoryManager" role="button"><i
+                                class="fa fa-file-excel-o" aria-hidden="true"></i> 导出</a>
+                        <button type="button" id="dormitoryManagerUploadButton" class="btn btn-danger" data-toggle="modal"
+                                data-target="#dormitoryManagerUpload"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 导入
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- admin -->
+        <div class="card contentHead adminContentHead">
+            <div class="card-body">
+                <form class="form-horizontal row">
+                    <div class="col-sm-2">
+                        <label class="form-control cardLabel">管理员管理</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" id="adminName" class="form-control" placeholder="姓名">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" onclick="adminQuery()"><i
+                                class="fa fa-search"></i> 查询
+                        </button>
+                        <button type="button" id="adminAddButton" class="btn btn-primary"
+                                data-toggle="modal" data-target="#adminAdd"><i
+                                class="fa fa-user-plus"></i> 新增
+                        </button>
+                        <a id="adminExportButton" class="btn btn-secondary" href="/excel/export?table=admin" role="button"><i
+                                class="fa fa-file-excel-o" aria-hidden="true"></i> 导出</a>
+                        <button type="button" id="adminUploadButton" class="btn btn-danger" data-toggle="modal"
+                                data-target="#adminUpload"><i
+                                class="fa fa-user-plus" aria-hidden="true"></i> 导入
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card content">
+            <div class="card-body contentTable">
+                <table class="table table-bordered table-hover table-condensed" id="contentData"
+                       name="contentData"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="studentAdd" tabindex="-1" aria-labelledby="studentAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentAddLabel">学生-新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="addStudentSn">学生编号</label>
+                        <input type="text" class="form-control" id="addStudentSn" placeholder="请输入学生编号">
+                    </div>
+                    <div class="form-group">
+                        <label for="addStudentName">姓名</label>
+                        <input type="text" class="form-control" id="addStudentName" placeholder="请输入姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="addStudentPassword">密码</label>
+                        <input type="text" class="form-control" id="addStudentPassword" placeholder="请输入密码">
+                    </div>
+                    <fieldset class="form-group row">
+                        <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="addStudentSex" id="addStudentSexM"
+                                       value="男">
+                                <label class="form-check-label" for="addStudentSexM">男</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="addStudentSex" id="addStudentSexF"
+                                       value="女">
+                                <label class="form-check-label" for="addStudentSexF">女</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="studentAddSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="studentUpdate" tabindex="-1" aria-labelledby="studentUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentUpdateLabel">学生-修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="text" id="updateStudentId" hidden>
+                    <div class="form-group">
+                        <label for="updateStudentSn">学生编号</label>
+                        <input type="text" class="form-control" id="updateStudentSn" placeholder="请输入学生编号">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateStudentName">姓名</label>
+                        <input type="text" class="form-control" id="updateStudentName" placeholder="请输入姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateStudentPassword">密码</label>
+                        <input type="text" class="form-control" id="updateStudentPassword" placeholder="请输入密码">
+                    </div>
+                    <fieldset class="form-group row">
+                        <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="updateStudentSex"
+                                       id="updateStudentSexM"
+                                       value="男">
+                                <label class="form-check-label" for="updateStudentSexM">男</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="updateStudentSex"
+                                       id="updateStudentSexF"
+                                       value="女">
+                                <label class="form-check-label" for="updateStudentSexF">女</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="studentUpdateSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="buildingAdd" tabindex="-1" aria-labelledby="buildingAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="buildingAddLabel">楼宇-新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="addBuildingName">楼宇名称</label>
+                        <input type="text" class="form-control" id="addBuildingName" placeholder="请输入楼宇名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="addBuildingLocation">楼宇位置</label>
+                        <input type="text" class="form-control" id="addBuildingLocation" placeholder="请输入楼宇所属位置">
+                    </div>
+                    <div class="form-group">
+                        <label for="addBuildingDormitoryManager">所属宿管</label>
+                        <select class="form-control" id="addBuildingDormitoryManager">
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="buildingAddSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="buildingUpdate" tabindex="-1" aria-labelledby="buildingUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="buildingUpdateLabel">楼宇-修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="text" id="updateBuildingId" hidden>
+                    <div class="form-group">
+                        <label for="updateBuildingName">楼宇名称</label>
+                        <input type="text" class="form-control" id="updateBuildingName" placeholder="请输入楼宇名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateBuildingLocation">楼宇位置</label>
+                        <input type="text" class="form-control" id="updateBuildingLocation" placeholder="请输入楼宇所属位置">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateBuildingDormitoryManager">所属宿管</label>
+                        <select class="form-control" id="updateBuildingDormitoryManager">
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="buildingUpdateSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dormitoryAdd" tabindex="-1" aria-labelledby="dormitoryAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dormitoryAddLabel">宿舍-新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="addDormitorySn">宿舍编号</label>
+                        <input type="text" class="form-control" id="addDormitorySn" placeholder="请输入宿舍编号">
+                    </div>
+                    <div class="form-group">
+                        <label for="addDormitoryBuildingId">所属楼宇</label>
+                        <select class="form-control" id="addDormitoryBuildingId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addDormitoryFloor">所属楼层</label>
+                        <input type="text" class="form-control" id="addDormitoryFloor" placeholder="请输入楼层">
+                    </div>
+                    <div class="form-group">
+                        <label for="addDormitoryMaxNumber">最大可住人数</label>
+                        <input type="text" class="form-control" id="addDormitoryMaxNumber" placeholder="请输入最大可住人数">
+                    </div>
+                    <div class="form-group">
+                        <label for="addDormitoryLivedNumber">已住人数</label>
+                        <input type="text" class="form-control" id="addDormitoryLivedNumber" placeholder="请输入已住人数">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dormitoryAddSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dormitoryUpdate" tabindex="-1" aria-labelledby="dormitoryUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dormitoryUpdateLabel">宿舍-更新</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="text" id="updateDormitoryId" hidden>
+                    <div class="form-group">
+                        <label for="updateDormitorySn">宿舍编号</label>
+                        <input type="text" class="form-control" id="updateDormitorySn" placeholder="请输入楼宇名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDormitoryBuildingId">所属楼宇</label>
+                        <select class="form-control" id="updateDormitoryBuildingId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDormitoryFloor">所属楼层</label>
+                        <input type="text" class="form-control" id="updateDormitoryFloor" placeholder="请输入楼层">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDormitoryMaxNumber">最大可住人数</label>
+                        <input type="text" class="form-control" id="updateDormitoryMaxNumber" placeholder="请输入最大可住人数">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDormitoryLivedNumber">已住人数</label>
+                        <input type="text" class="form-control" id="updateDormitoryLivedNumber" placeholder="请输入已住人数">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dormitoryUpdateSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="liveAdd" tabindex="-1" aria-labelledby="liveAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liveAddLabel">入住-新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="addLiveStudentId">学生</label>
+                    <select class="form-control" id="addLiveStudentId">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="addLiveDormitoryId">宿舍</label>
+                    <select class="form-control" id="addLiveDormitoryId">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="addLiveDate">入住时间</label>
+                    <input type="text" class="form-control" id="addLiveDate">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="liveAddSave()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="liveUpdate" tabindex="-1" aria-labelledby="liveUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liveUpdateLabel">入住-修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="updateLiveId" hidden>
+                <div class="form-group">
+                    <label for="updateLiveStudentId">学生</label>
+                    <select class="form-control" id="updateLiveStudentId">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="updateLiveDormitoryId">宿舍</label>
+                    <select class="form-control" id="updateLiveDormitoryId">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="updateLiveDate">入住时间</label>
+                    <input type="text" class="form-control" id="updateLiveDate">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="liveUpdateSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dormitoryManagerAdd" tabindex="-1" aria-labelledby="dormitoryManagerAddLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dormitoryManagerAddLabel">宿管-新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="addDormitoryManagerSn">宿管编号</label>
+                    <input type="text" class="form-control" id="addDormitoryManagerSn" placeholder="请输入宿管编号">
+                </div>
+                <div class="form-group">
+                    <label for="addDormitoryManagerName">姓名</label>
+                    <input type="text" class="form-control" id="addDormitoryManagerName" placeholder="请输入姓名">
+                </div>
+                <div class="form-group">
+                    <label for="addDormitoryManagerPassword">密码</label>
+                    <input type="text" class="form-control" id="addDormitoryManagerPassword" placeholder="请输入密码">
+                </div>
+                <fieldset class="form-group row">
+                    <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="addDormitoryManagerSex"
+                                   id="addDormitoryManagerSexM"
+                                   value="男">
+                            <label class="form-check-label" for="addDormitoryManagerSexM">男</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="addDormitoryManagerSex"
+                                   id="addDormitoryManagerSexF"
+                                   value="女">
+                            <label class="form-check-label" for="addDormitoryManagerSexF">女</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dormitoryManagerAddSave()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dormitoryManagerUpdate" tabindex="-1" aria-labelledby="dormitoryManagerUpdateLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dormitoryManagerUpdateLabel">宿管-修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="updateDormitoryManagerId" hidden>
+                <div class="form-group">
+                    <label for="updateDormitoryManagerSn">宿管编号</label>
+                    <input type="text" class="form-control" id="updateDormitoryManagerSn" placeholder="请输入宿管编号">
+                </div>
+                <div class="form-group">
+                    <label for="updateDormitoryManagerName">姓名</label>
+                    <input type="text" class="form-control" id="updateDormitoryManagerName" placeholder="请输入姓名">
+                </div>
+                <div class="form-group">
+                    <label for="updateDormitoryManagerPassword">密码</label>
+                    <input type="text" class="form-control" id="updateDormitoryManagerPassword" placeholder="请输入密码">
+                </div>
+                <fieldset class="form-group row">
+                    <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="updateDormitoryManagerSex"
+                                   id="updateDormitoryManagerSexM"
+                                   value="男">
+                            <label class="form-check-label" for="updateDormitoryManagerSexM">男</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="updateDormitoryManagerSex"
+                                   id="updateDormitoryManagerSexF"
+                                   value="女">
+                            <label class="form-check-label" for="updateDormitoryManagerSexF">女</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="dormitoryManagerUpdateSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adminAdd" tabindex="-1" aria-labelledby="adminAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminAddLabel">管理员-新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="adminAddName">密码</label>
+                    <input type="text" class="form-control" id="adminAddName" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <label for="adminAddPassword">密码</label>
+                    <input type="text" class="form-control" id="adminAddPassword" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="adminAddSave()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adminUpdate" tabindex="-1" aria-labelledby="adminUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminUpdateLabel">管理员-修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="adminUpdateId" hidden>
+                <div class="form-group">
+                    <label for="adminUpdateName">密码</label>
+                    <input type="text" class="form-control" id="adminUpdateName" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <label for="adminUpdatePassword">密码</label>
+                    <input type="text" class="form-control" id="adminUpdatePassword" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="adminUpdateSave()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="studentUpload" tabindex="-1" aria-labelledby="studentUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentUploadLabel">学生-上传Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="studentUploadFile" name="studentUploadFile" type="file"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="studentUpload()">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="buildingUpload" tabindex="-1" aria-labelledby="buildingUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="buildingUploadLabel">楼宇-上传Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="buildingUploadFile" name="buildingUploadFile" type="file"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="buildingUpload()">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dormitoryUpload" tabindex="-1" aria-labelledby="dormitoryUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dormitoryUploadLabel">宿舍-上传Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="dormitoryUploadFile" name="dormitoryUploadFile" type="file"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dormitoryUpload()">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="liveUpload" tabindex="-1" aria-labelledby="liveUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liveUploadLabel">入住-上传Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="liveUploadFile" name="liveUploadFile" type="file"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="liveUpload()">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dormitoryManagerUpload" tabindex="-1" aria-labelledby="dormitoryManagerUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dormitoryManagerUploadLabel">宿管-上传Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="dormitoryManagerUploadFile" name="dormitoryManagerUploadFile" type="file"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dormitoryManagerUpload()">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adminUpload" tabindex="-1" aria-labelledby="adminUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminUploadLabel">管理员-上传Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="adminUploadFile" name="adminUploadFile" type="file"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="adminUpload()">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部 -->
+<footer id="footer">
+    <h4>版权声明 <i class="fa fa-copyright"></i>ZYP</h4>
+</footer>
+</body>
+</html>
