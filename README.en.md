@@ -1,36 +1,55 @@
 # dm
 
 #### Description
-学生宿舍管理系统
+Student Dormitory Management System
 
 #### Software Architecture
-Software architecture description
 
-#### Installation
+Spring Boot Web
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+Spring Boot Data Jpa
 
-#### Instructions
+Spring Boot Data Rest
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+SpringMVC
 
-#### Contribution
+Bootstrap 4
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+Ajax
 
+MySQL
 
-#### Gitee Feature
+hikariCP
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+JQuery
+
+gijgo
+
+font-awesome
+
+bootstrap-table
+
+sweetalert
+
+## Run
+
+home
+![home](image/home.png)
+
+student
+![student](image/student.png)
+
+dormitory
+![dormitory](image/dormitory.png)
+
+building
+![building](image/building.png)
+
+live
+![live](image/live.png)
+
+dormitory_manager
+![dormitory_manager](image/dormitory_manager.png)
+
+admin
+![admin](image/admin.png)
