@@ -5,8 +5,8 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/dm?useUnicode=true&characterEncoding=utf8
-    username: zhaozixing
-    password: zhaozixing
+    username: root
+    password: 11111111
     hikari:
       minimum-idle: 5
       idle-timeout: 600000
