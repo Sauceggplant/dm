@@ -35,7 +35,7 @@ public class LoginController {
      * 验证码有效时间
      * 60秒
      */
-    private static final long cpachaTimeout = 86400000;
+    private static final long capchaTimeout = 86400000;
 
     /**
      * 超级管理员存储服务
@@ -95,27 +95,27 @@ public class LoginController {
         loginResponse.setRequestId(loginRequest.getRequestId());
 
         //验证码校验
-        Object cpacha = request.getSession().getAttribute("cpacha");
+        Object capcha = request.getSession().getAttribute("capcha");
         //校验session数据是否失效
-        if (null == cpacha || !StringUtils.hasLength(String.valueOf(cpacha))) {
+        if (null == capcha || !StringUtils.hasLength(String.valueOf(capcha))) {
             //验证码已失效
-            loginResponse.setResponseCode(ResponseCodeEnum.CPACHA_INVALID);
+            loginResponse.setResponseCode(ResponseCodeEnum.CAPCHA_INVALID);
             loginResponse.setTimestamp(System.currentTimeMillis());
             return loginResponse;
         } else {
-            String[] cpachaCode = cpacha.toString().split("_");
-            long time = Long.parseLong(cpachaCode[1]);
+            String[] capchaCode = capcha.toString().split("_");
+            long time = Long.parseLong(capchaCode[1]);
             long now = System.currentTimeMillis();
-            if (now - time > cpachaTimeout) {
+            if (now - time > capchaTimeout) {
                 //验证码已过期
-                loginResponse.setResponseCode(ResponseCodeEnum.CPACHA_INVALID);
+                loginResponse.setResponseCode(ResponseCodeEnum.CAPCHA_INVALID);
                 loginResponse.setTimestamp(System.currentTimeMillis());
                 return loginResponse;
             }
             // 设置不区分大小写
-            if (!loginRequest.getCaptcha().toUpperCase().equals(cpachaCode[0].toUpperCase())) {
+            if (!loginRequest.getCaptcha().toUpperCase().equals(capchaCode[0].toUpperCase())) {
                 //验证码输入错误
-                loginResponse.setResponseCode(ResponseCodeEnum.CPACHA_INVALID);
+                loginResponse.setResponseCode(ResponseCodeEnum.CAPCHA_INVALID);
                 loginResponse.setTimestamp(System.currentTimeMillis());
                 return loginResponse;
             }
