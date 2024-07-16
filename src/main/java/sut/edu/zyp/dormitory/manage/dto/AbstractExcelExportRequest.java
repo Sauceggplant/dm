@@ -1,5 +1,8 @@
 package sut.edu.zyp.dormitory.manage.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +13,8 @@ import java.util.List;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 public abstract class AbstractExcelExportRequest extends AbstractBaseRequest implements Serializable {
 
     /**
@@ -31,36 +36,4 @@ public abstract class AbstractExcelExportRequest extends AbstractBaseRequest imp
      * 列key
      */
     private List<String> columns;
-
-    public String getExcelName() {
-        return excelName;
-    }
-
-    public void setExcelName(String excelName) {
-        this.excelName = excelName;
-    }
-
-    public String getSheetName() {
-        return sheetName;
-    }
-
-    public void setSheetName(String sheetName) {
-        this.sheetName = sheetName;
-    }
-
-    public List<String> getColumnNames() {
-        return columnNames;
-    }
-
-    public void setColumnNames(List<String> columnNames) {
-        this.columnNames = columnNames;
-    }
-
-    public List<String> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
-    }
 }

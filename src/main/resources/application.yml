@@ -1,13 +1,10 @@
-logging:
-  config:
-    classpath: logback-spring.xml
 server:
   port: 8080
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dm?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/dm?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 11111111
     hikari:
@@ -15,7 +12,7 @@ spring:
       idle-timeout: 600000
       maximum-pool-size: 10
       auto-commit: true
-      pool-name: mwHikariCP
+      pool-name: dmHikariCP
       max-lifetime: 1800000
       connection-timeout: 30000
   jpa:

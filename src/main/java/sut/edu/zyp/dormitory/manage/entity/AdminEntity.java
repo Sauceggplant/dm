@@ -1,11 +1,11 @@
 package sut.edu.zyp.dormitory.manage.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +15,8 @@ import java.io.Serializable;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "admin")
@@ -31,20 +33,4 @@ public class AdminEntity extends AbstractBaseEntity implements Serializable {
      */
     @Column(length = 32, nullable = false)
     private String password;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

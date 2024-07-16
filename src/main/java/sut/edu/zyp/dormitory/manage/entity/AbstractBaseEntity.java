@@ -3,11 +3,13 @@ package sut.edu.zyp.dormitory.manage.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 基础实体对象父类，所有的数据库表都要有的通用字段，其他所有的实体类（entity类)都需要继承此父类
@@ -17,6 +19,8 @@ import javax.persistence.*;
  * @since 0.0.1
  */
 @MappedSuperclass
+@Getter
+@Setter
 public abstract class AbstractBaseEntity implements Serializable {
 
     /**
@@ -53,44 +57,4 @@ public abstract class AbstractBaseEntity implements Serializable {
      */
     @Column(length = 1)
     private String valid = "1";
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    public String getValid() {
-        return valid;
-    }
-
-    public void setValid(String valid) {
-        this.valid = valid;
-    }
 }

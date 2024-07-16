@@ -1,6 +1,6 @@
 package sut.edu.zyp.dormitory.manage.repository;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import sut.edu.zyp.dormitory.manage.entity.BuildingEntity;
 
@@ -12,7 +12,7 @@ import sut.edu.zyp.dormitory.manage.entity.BuildingEntity;
  * @since 0.0.1
  */
 @RepositoryRestResource(collectionResourceRel = "building", path = "building")
-public interface BuildingRepository extends PagingAndSortingRepository<BuildingEntity, String> {
+public interface BuildingRepository extends JpaRepository<BuildingEntity, String> {
 
     /**
      * 楼宇信息

@@ -1,6 +1,6 @@
 package sut.edu.zyp.dormitory.manage.repository;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import sut.edu.zyp.dormitory.manage.entity.AdminEntity;
 
@@ -12,7 +12,7 @@ import sut.edu.zyp.dormitory.manage.entity.AdminEntity;
  * @since 0.0.1
  */
 @RepositoryRestResource(collectionResourceRel = "admin", path = "admin")
-public interface AdminRepository extends PagingAndSortingRepository<AdminEntity, String> {
+public interface AdminRepository extends JpaRepository<AdminEntity, String> {
 
     /**
      * 按照管理员账号查询

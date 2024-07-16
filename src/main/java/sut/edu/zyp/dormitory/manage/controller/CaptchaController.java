@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sut.edu.zyp.dormitory.manage.service.CaptchaService;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -49,7 +51,7 @@ public class CaptchaController {
         //生成4位验证码
         String verifyCode = captchaService.genCaptha(4);
         //将验证码放到HttpSession里面
-        request.getSession().setAttribute("capcha", verifyCode + "_" + System.currentTimeMillis());
+        request.getSession().setAttribute("cpacha", verifyCode + "_" + System.currentTimeMillis());
         //设置输出的内容的类型为JPEG图像
         response.setContentType("image/jpeg");
 

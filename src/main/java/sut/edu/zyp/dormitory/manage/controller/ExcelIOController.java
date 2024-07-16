@@ -28,7 +28,8 @@ import sut.edu.zyp.dormitory.manage.entity.*;
 import sut.edu.zyp.dormitory.manage.enums.ResponseCodeEnum;
 import sut.edu.zyp.dormitory.manage.repository.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
@@ -208,8 +209,8 @@ public class ExcelIOController {
             restDataExcelExportRequest.setSheetName("管理员");
             restDataExcelExportRequest.setUrl("/admin");
         } else if ("/building".equals(url)) {
-            String[] columns = {"id", "name", "location", "dormitoryManagerId", "createTime", "updateTime"};
-            String[] columnNames = {"主键", "楼宇名称", "楼宇位置", "所属宿管id", "创建时间", "更新时间"};
+            String[] columns = {"id", "name", "location", "dormitoryManagerId", "area", "floors", "createTime", "updateTime"};
+            String[] columnNames = {"主键", "楼宇名称", "楼宇位置", "所属宿管id", "占地面积(平米)", "楼层数", "创建时间", "更新时间"};
             restDataExcelExportRequest.setColumns(Arrays.asList(columns));
             restDataExcelExportRequest.setColumnNames(Arrays.asList(columnNames));
             restDataExcelExportRequest.setExcelName("数据导出-楼宇");

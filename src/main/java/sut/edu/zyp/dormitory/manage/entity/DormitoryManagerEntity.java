@@ -1,11 +1,11 @@
 package sut.edu.zyp.dormitory.manage.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +15,8 @@ import java.io.Serializable;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "dormitory_manager")
@@ -43,36 +45,4 @@ public class DormitoryManagerEntity extends AbstractBaseEntity implements Serial
      */
     @Column(length = 4, nullable = false)
     private String sex;
-
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 }

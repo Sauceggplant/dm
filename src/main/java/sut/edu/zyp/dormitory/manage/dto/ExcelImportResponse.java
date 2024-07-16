@@ -1,5 +1,8 @@
 package sut.edu.zyp.dormitory.manage.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +14,8 @@ import java.util.Map;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 public class ExcelImportResponse extends AbstractBaseResponse<ExcelImportResponse> implements Serializable {
 
     /**
@@ -27,28 +32,4 @@ public class ExcelImportResponse extends AbstractBaseResponse<ExcelImportRespons
      * 导入成功的数据
      */
     private List<Map<String,String>> saveData;
-
-    public String getTable() {
-        return table;
-    }
-
-    public void setTable(String table) {
-        this.table = table;
-    }
-
-    public int getSuccessRows() {
-        return successRows;
-    }
-
-    public void setSuccessRows(int successRows) {
-        this.successRows = successRows;
-    }
-
-    public List<Map<String, String>> getSaveData() {
-        return saveData;
-    }
-
-    public void setSaveData(List<Map<String, String>> saveData) {
-        this.saveData = saveData;
-    }
 }

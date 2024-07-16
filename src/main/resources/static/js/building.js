@@ -50,6 +50,16 @@ function initBuilding() {
             align: 'left',
             valign: 'left'
         }, {
+            field: 'area',
+            title: '占地面积(平米)',
+            align: 'left',
+            valign: 'left'
+        }, {
+            field: 'floors',
+            title: '楼层数',
+            align: 'left',
+            valign: 'left'
+        }, {
             field: 'id',
             title: '操作',
             align: 'center',
@@ -196,6 +206,8 @@ function buildingAddSave() {
     data.name = $("#addBuildingName").val();
     data.location = $("#addBuildingLocation").val();
     data.dormitoryManagerId = $("#addBuildingDormitoryManager").val();
+    data.area = $("#addBuildingArea").val();
+    data.floors = $("#addBuildingFloors").val();
     $.ajax({
         async: true,
         cache: false,
@@ -221,6 +233,8 @@ function buildingUpdate(index) {
     $("#updateBuildingId").val(row.id);
     $("#updateBuildingName").val(row.name);
     $("#updateBuildingLocation").val(row.location);
+    $("#updateBuildingArea").val(row.area);
+    $("#updateBuildingFloors").val(row.floors);
     var contentData;
     var html = "";
     $.ajax({
@@ -248,6 +262,8 @@ function buildingUpdateSave() {
     data.id = $("#updateBuildingId").val();
     data.name = $("#updateBuildingName").val();
     data.location = $("#updateBuildingLocation").val();
+    data.area = $("#updateBuildingArea").val();
+    data.floors = $("#updateBuildingFloors").val();
     data.dormitoryManagerId = $("#updateBuildingDormitoryManager").val();
     data.createTime = editContentBuildingData.createTime;
     $.ajax({

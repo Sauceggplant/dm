@@ -22,7 +22,7 @@ public enum ResponseCodeEnum {
     /**
      * 验证码已失效、验证码已过期、验证码输入错误
      */
-    CAPCHA_INVALID("0002", "验证码错误，请您刷新验证码后重新登录！"),
+    CPACHA_INVALID("0002", "验证码错误，请您刷新验证码后重新登录！"),
 
     /**
      * 账号不存在

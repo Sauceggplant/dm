@@ -1,5 +1,8 @@
 package sut.edu.zyp.dormitory.manage.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +12,8 @@ import java.io.Serializable;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 public class LoginRequest extends AbstractBaseRequest implements Serializable {
 
     /**
@@ -30,36 +35,4 @@ public class LoginRequest extends AbstractBaseRequest implements Serializable {
      * 验证码
      */
     private String captcha;
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCaptcha() {
-        return captcha;
-    }
-
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
-    }
 }

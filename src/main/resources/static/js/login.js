@@ -1,4 +1,12 @@
 /**
+ * init
+ */
+$(function () {
+    //默认选中
+    $("input[name='type']").get(0).checked = true;
+});
+
+/**
  * 初始化验证码
  */
 function initCaptcha() {

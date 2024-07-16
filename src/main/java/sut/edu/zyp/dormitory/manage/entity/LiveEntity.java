@@ -1,11 +1,11 @@
 package sut.edu.zyp.dormitory.manage.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -16,6 +16,8 @@ import java.sql.Date;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "live")
@@ -38,28 +40,4 @@ public class LiveEntity extends AbstractBaseEntity implements Serializable {
      */
     @Column(name = "live_date", nullable = false, columnDefinition = "TIMESTAMP")
     private Date liveDate;
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getDormitoryId() {
-        return dormitoryId;
-    }
-
-    public void setDormitoryId(String dormitoryId) {
-        this.dormitoryId = dormitoryId;
-    }
-
-    public Date getLiveDate() {
-        return liveDate;
-    }
-
-    public void setLiveDate(Date liveDate) {
-        this.liveDate = liveDate;
-    }
 }

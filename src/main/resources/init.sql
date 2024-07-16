@@ -1,4 +1,5 @@
-create database `dm` default charset utf8mb4 collate utf8mb4_general_ci;
+--CREATE DATABASE `dm` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE `dm` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 use dm;
 

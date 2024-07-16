@@ -10,7 +10,8 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+
 import java.util.Set;
 
 /**

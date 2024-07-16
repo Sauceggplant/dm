@@ -1,5 +1,8 @@
 package sut.edu.zyp.dormitory.manage.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +12,8 @@ import java.io.Serializable;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 public abstract class AbstractBaseRequest implements Serializable {
 
     /**
@@ -20,20 +25,4 @@ public abstract class AbstractBaseRequest implements Serializable {
      * 操作人
      */
     private String operator;
-
-    public String getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
 }

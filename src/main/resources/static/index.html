@@ -10,17 +10,17 @@
     <title>学生宿舍管理系统</title>
     <link rel="shortcut icon" href="favicon.ico"/>
     <link rel="bookmark" href="favicon.ico"/>
-    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-grid.min.css">
-    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-reboot.min.css">
-    <link type="text/css" rel="stylesheet" href="bootstrap-table/bootstrap-table.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap4.6.2/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap4.6.2/css/bootstrap-grid.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap4.6.2/css/bootstrap-reboot.min.css">
+    <link type="text/css" rel="stylesheet" href="bootstrap-table1.21.3/bootstrap-table.min.css">
     <link type="text/css" rel="stylesheet" href="gijgo/css/gijgo.min.css">
     <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <script type="text/javascript" src="jquery/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="bootstrap-table/bootstrap-table.min.js"></script>
-    <script type="text/javascript" src="bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="bootstrap4.6.2/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="bootstrap4.6.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap-table1.21.3/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="bootstrap-table1.21.3/locale/bootstrap-table-zh-CN.min.js"></script>
     <script type="text/javascript" src="gijgo/js/gijgo.min.js"></script>
     <script type="text/javascript" src="gijgo/js/messages/messages.zh-cn.min.js"></script>
     <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
@@ -417,7 +417,7 @@
                     </div>
                     <div class="form-group">
                         <label for="addStudentPassword">密码</label>
-                        <input type="text" class="form-control" id="addStudentPassword" placeholder="请输入密码">
+                        <input type="password" class="form-control" id="addStudentPassword" placeholder="请输入密码">
                     </div>
                     <fieldset class="form-group row">
                         <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
@@ -467,7 +467,7 @@
                     </div>
                     <div class="form-group">
                         <label for="updateStudentPassword">密码</label>
-                        <input type="text" class="form-control" id="updateStudentPassword" placeholder="请输入密码">
+                        <input type="password" class="form-control" id="updateStudentPassword" placeholder="请输入密码">
                     </div>
                     <fieldset class="form-group row">
                         <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
@@ -517,9 +517,17 @@
                         <input type="text" class="form-control" id="addBuildingLocation" placeholder="请输入楼宇所属位置">
                     </div>
                     <div class="form-group">
-                        <label for="addBuildingDormitoryManager">所属宿管</label>
+                        <label for="addBuildingDormitoryManager">所属宿管(姓名)</label>
                         <select class="form-control" id="addBuildingDormitoryManager">
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addBuildingArea">占地面积(平米)</label>
+                        <input type="text" class="form-control" id="addBuildingArea" placeholder="请输入楼宇占地面积(平米)">
+                    </div>
+                    <div class="form-group">
+                        <label for="addBuildingFloors">楼层数</label>
+                        <input type="text" class="form-control" id="addBuildingFloors" placeholder="请输入楼宇楼层数">
                     </div>
                 </form>
             </div>
@@ -553,9 +561,17 @@
                         <input type="text" class="form-control" id="updateBuildingLocation" placeholder="请输入楼宇所属位置">
                     </div>
                     <div class="form-group">
-                        <label for="updateBuildingDormitoryManager">所属宿管</label>
+                        <label for="updateBuildingDormitoryManager">所属宿管(姓名)</label>
                         <select class="form-control" id="updateBuildingDormitoryManager">
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateBuildingArea">占地面积(平米)</label>
+                        <input type="text" class="form-control" id="updateBuildingArea" placeholder="请输入楼宇占地面积(平米)">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateBuildingFloors">楼层数</label>
+                        <input type="text" class="form-control" id="updateBuildingFloors" placeholder="请输入楼宇楼层数">
                     </div>
                 </form>
             </div>
@@ -744,7 +760,7 @@
                 </div>
                 <div class="form-group">
                     <label for="addDormitoryManagerPassword">密码</label>
-                    <input type="text" class="form-control" id="addDormitoryManagerPassword" placeholder="请输入密码">
+                    <input type="password" class="form-control" id="addDormitoryManagerPassword" placeholder="请输入密码">
                 </div>
                 <fieldset class="form-group row">
                     <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
@@ -796,7 +812,7 @@
                 </div>
                 <div class="form-group">
                     <label for="updateDormitoryManagerPassword">密码</label>
-                    <input type="text" class="form-control" id="updateDormitoryManagerPassword" placeholder="请输入密码">
+                    <input type="password" class="form-control" id="updateDormitoryManagerPassword" placeholder="请输入密码">
                 </div>
                 <fieldset class="form-group row">
                     <legend class="col-form-label col-sm-2 float-sm-left pt-0">性别</legend>
@@ -838,11 +854,11 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="adminAddName">密码</label>
-                    <input type="text" class="form-control" id="adminAddName" placeholder="请输入账号">
+                    <input type="password" class="form-control" id="adminAddName" placeholder="请输入账号">
                 </div>
                 <div class="form-group">
                     <label for="adminAddPassword">密码</label>
-                    <input type="text" class="form-control" id="adminAddPassword" placeholder="请输入密码">
+                    <input type="password" class="form-control" id="adminAddPassword" placeholder="请输入密码">
                 </div>
             </div>
             <div class="modal-footer">
@@ -866,11 +882,11 @@
                 <input type="text" id="adminUpdateId" hidden>
                 <div class="form-group">
                     <label for="adminUpdateName">密码</label>
-                    <input type="text" class="form-control" id="adminUpdateName" placeholder="请输入账号">
+                    <input type="password" class="form-control" id="adminUpdateName" placeholder="请输入账号">
                 </div>
                 <div class="form-group">
                     <label for="adminUpdatePassword">密码</label>
-                    <input type="text" class="form-control" id="adminUpdatePassword" placeholder="请输入密码">
+                    <input type="password" class="form-control" id="adminUpdatePassword" placeholder="请输入密码">
                 </div>
             </div>
             <div class="modal-footer">

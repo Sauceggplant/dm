@@ -43,12 +43,14 @@ function initDormitoryManager() {
             title: '性别',
             align: 'center',
             valign: 'middle'
-        }, {
-            field: 'password',
-            title: '密码',
-            align: 'left',
-            valign: 'left'
-        }, {
+        },
+        // {
+        //     field: 'password',
+        //     title: '密码',
+        //     align: 'left',
+        //     valign: 'left'
+        // },
+        {
             field: 'id',
             title: '操作',
             align: 'center',

@@ -1,11 +1,11 @@
 package sut.edu.zyp.dormitory.manage.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +15,8 @@ import java.io.Serializable;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Getter
+@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "dormitory")
@@ -49,44 +51,4 @@ public class DormitoryEntity extends AbstractBaseEntity implements Serializable 
      */
     @Column(name = "lived_number")
     private Integer livedNumber = 0;
-
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public String getBuildingId() {
-        return buildingId;
-    }
-
-    public void setBuildingId(String buildingId) {
-        this.buildingId = buildingId;
-    }
-
-    public String getFloor() {
-        return floor;
-    }
-
-    public void setFloor(String floor) {
-        this.floor = floor;
-    }
-
-    public Integer getMaxNumber() {
-        return maxNumber;
-    }
-
-    public void setMaxNumber(Integer maxNumber) {
-        this.maxNumber = maxNumber;
-    }
-
-    public Integer getLivedNumber() {
-        return livedNumber;
-    }
-
-    public void setLivedNumber(Integer livedNumber) {
-        this.livedNumber = livedNumber;
-    }
 }

@@ -1,6 +1,6 @@
 package sut.edu.zyp.dormitory.manage.repository;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import sut.edu.zyp.dormitory.manage.entity.StudentEntity;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 0.0.1
  */
 @RepositoryRestResource(collectionResourceRel = "student", path = "student")
-public interface StudentRepository extends PagingAndSortingRepository<StudentEntity, String> {
+public interface StudentRepository extends JpaRepository<StudentEntity, String> {
 
     /**
      * 按照学生编号查询学生信息

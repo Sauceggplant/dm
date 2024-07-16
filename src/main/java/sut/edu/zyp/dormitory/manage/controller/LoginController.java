@@ -18,7 +18,8 @@ import sut.edu.zyp.dormitory.manage.repository.AdminRepository;
 import sut.edu.zyp.dormitory.manage.repository.DormitoryManagerRepository;
 import sut.edu.zyp.dormitory.manage.repository.StudentRepository;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class LoginController {
      * 验证码有效时间
      * 60秒
      */
-    private static final long capchaTimeout = 86400000;
+    private static final long cpachaTimeout = 86400000;
 
     /**
      * 超级管理员存储服务
@@ -95,27 +96,27 @@ public class LoginController {
         loginResponse.setRequestId(loginRequest.getRequestId());
 
         //验证码校验
-        Object capcha = request.getSession().getAttribute("capcha");
+        Object cpacha = request.getSession().getAttribute("cpacha");
         //校验session数据是否失效
-        if (null == capcha || !StringUtils.hasLength(String.valueOf(capcha))) {
+        if (null == cpacha || !StringUtils.hasLength(String.valueOf(cpacha))) {
             //验证码已失效
-            loginResponse.setResponseCode(ResponseCodeEnum.CAPCHA_INVALID);
+            loginResponse.setResponseCode(ResponseCodeEnum.CPACHA_INVALID);
             loginResponse.setTimestamp(System.currentTimeMillis());
             return loginResponse;
         } else {
-            String[] capchaCode = capcha.toString().split("_");
-            long time = Long.parseLong(capchaCode[1]);
+            String[] cpachaCode = cpacha.toString().split("_");
+            long time = Long.parseLong(cpachaCode[1]);
             long now = System.currentTimeMillis();
-            if (now - time > capchaTimeout) {
+            if (now - time > cpachaTimeout) {
                 //验证码已过期
-                loginResponse.setResponseCode(ResponseCodeEnum.CAPCHA_INVALID);
+                loginResponse.setResponseCode(ResponseCodeEnum.CPACHA_INVALID);
                 loginResponse.setTimestamp(System.currentTimeMillis());
                 return loginResponse;
             }
             // 设置不区分大小写
-            if (!loginRequest.getCaptcha().toUpperCase().equals(capchaCode[0].toUpperCase())) {
+            if (!loginRequest.getCaptcha().toUpperCase().equals(cpachaCode[0].toUpperCase())) {
                 //验证码输入错误
-                loginResponse.setResponseCode(ResponseCodeEnum.CAPCHA_INVALID);
+                loginResponse.setResponseCode(ResponseCodeEnum.CPACHA_INVALID);
                 loginResponse.setTimestamp(System.currentTimeMillis());
                 return loginResponse;
             }
