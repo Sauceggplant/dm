@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <property name="PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} %X{trace-id} %X{parent-id} %X{span-id} - %msg%n"/>
+    <property name="log.path" value="./log/"/>
+    <property name="log.level" value="DEBUG"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}app_info.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}app_info_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 单个日志文件的大小 建议区间[100MB,1GB] digger不建议超过1GB -->
+            <maxFileSize>1GB</maxFileSize>
+            <!--日志文件保留天数-->
+            <maxHistory>30</maxHistory>
+            <!--是指该类日志文件，在磁盘总占用空间超过这个阈值，就会触发清理老旧的日志文件。避免日志文件过大，导致磁盘空间100%-->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 队列的最大容量,该值会影响性能.默认值为256 -->
+        <queueSize>8192</queueSize>
+        <!-- 队列剩余容量小于discardingThreshold,则会丢弃TRACT、DEBUG、INFO级别的日志;默认值-1,为queueSize的20%;0不丢失日志 -->
+        <discardingThreshold>-1</discardingThreshold>
+        <!-- 3. 默认：false，如果系统异常之后，error级别的日志把队列占满了，会出现阻塞情况。可以设置为true，丢弃日志，从而不影响业务线程。 -->
+        <neverBlock>true</neverBlock>
+        <!--是否提取调用者数据-->
+        <includeCallerData>false</includeCallerData>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}app_error.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}app_error_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 单个日志文件的大小 建议区间[100MB,1GB] digger不建议超过1GB -->
+            <maxFileSize>1GB</maxFileSize>
+            <!--日志文件保留天数-->
+            <maxHistory>30</maxHistory>
+            <!--是指该类日志文件，在磁盘总占用空间超过这个阈值，就会触发清理老旧的日志文件。避免日志文件过大，导致磁盘空间100%-->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- WARN 级别及以上 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder charset="UTF-8">
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_ERROR_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 队列的最大容量,该值会影响性能.默认值为256 -->
+        <queueSize>8192</queueSize>
+        <!-- 队列剩余容量小于discardingThreshold,则会丢弃TRACT、DEBUG、INFO级别的日志;默认值-1,为queueSize的20%;0不丢失日志 -->
+        <discardingThreshold>-1</discardingThreshold>
+        <!-- 3. 默认：false，如果系统异常之后，error级别的日志把队列占满了，会出现阻塞情况。可以设置为true，丢弃日志，从而不影响业务线程。 -->
+        <neverBlock>true</neverBlock>
+        <!--是否提取调用者数据-->
+        <includeCallerData>false</includeCallerData>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="ERROR_FILE"/>
+    </appender>
+
+    <root level="${log.level}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+        <appender-ref ref="ASYNC_ERROR_FILE"/>
+    </root>
+</configuration>
